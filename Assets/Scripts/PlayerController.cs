@@ -9,8 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravityModifier;
     [SerializeField] private GameOver gameOver;
+    [SerializeField] private ParticleSystem dirtParticle;
+    [SerializeField] private AudioClip jumpAudio;
 
     private Animator _animator;
+    private AudioSource _audioSource;
     private bool _isGrounded;
     private Rigidbody _rigidbody;
 
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
 
         Physics.gravity *= gravityModifier;
         _isGrounded = true;
@@ -46,5 +50,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         _isGrounded = false;
         _animator.SetTrigger(JumpTrig);
+        dirtParticle.Stop();
+        _audioSource.PlayOneShot(jumpAudio);
     }
 }

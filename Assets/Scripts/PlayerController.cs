@@ -2,23 +2,37 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
+    private static readonly int DeathB = Animator.StringToHash("Death_b");
+    private static readonly int DeathTypeINT = Animator.StringToHash("DeathType_int");
+
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravityModifier;
     [SerializeField] private GameOver gameOver;
-    private bool _isGrounded;
 
+    private Animator _animator;
+    private bool _isGrounded;
     private Rigidbody _rigidbody;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
+
         Physics.gravity *= gravityModifier;
         _isGrounded = true;
     }
 
     private void Update()
     {
-        if (gameOver.gameOver) return;
+        if (gameOver.gameOver)
+        {
+            _animator.SetBool(DeathB, true);
+            _animator.SetInteger(DeathTypeINT, 1);
+
+            return;
+        }
+
         if (_isGrounded && Input.GetKeyDown(KeyCode.Space)) Jump();
     }
 
@@ -31,5 +45,6 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         _isGrounded = false;
+        _animator.SetTrigger(JumpTrig);
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,7 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7104b351e398148ecb7f3dfbd1cf6750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePreface: {fileID: 7356450263378957862, guid: 10a5ce3f1ae514fc8b147376aa83d4b2, type: 3}
+  obstacles:
+  - {fileID: 9041426453051355527, guid: 565267430c7a34d5b9188c6ac58bbe1e, type: 3}
+  - {fileID: 320477308865647252, guid: 3bae91761be254c17a7f423dbc6fa6c8, type: 3}
+  - {fileID: 8227173505942596381, guid: 239e305f40d5d407a9b2dd141a14a348, type: 3}
+  - {fileID: 7356450263378957862, guid: 10a5ce3f1ae514fc8b147376aa83d4b2, type: 3}
   minSpawnDelay: 2
   maxSpawnDelay: 5
   gameOver: {fileID: 11400000, guid: e92fff4e35c4f461db647ace2a85367b, type: 2}

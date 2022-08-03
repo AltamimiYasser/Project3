@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
     private AudioSource _audioSource;
-    private bool _isGrounded;
+    private int _jumpCount;
     private Rigidbody _rigidbody;
 
     private void Awake()
@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         Physics.gravity *= gravityModifier;
-        _isGrounded = true;
     }
 
     private void Update()
@@ -37,18 +36,18 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (_isGrounded && Input.GetKeyDown(KeyCode.Space)) Jump();
+        if (Input.GetKeyDown(KeyCode.Space) && _jumpCount < 2) Jump();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground")) _isGrounded = true;
+        if (collision.gameObject.CompareTag("Ground")) _jumpCount = 0;
     }
 
     private void Jump()
     {
+        _jumpCount++;
         _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        _isGrounded = false;
         _animator.SetTrigger(JumpTrig);
         dirtParticle.Stop();
         _audioSource.PlayOneShot(jumpAudio);
